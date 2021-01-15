@@ -21,4 +21,4 @@ async def websocket_endpoint(websocket: WebSocket):
 
 
 # 程序入口
-uvicorn.run(app, host="0.0.0.0", port=8000)
+uvicorn.run(app, host="0.0.0.0", port=8001)

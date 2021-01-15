@@ -14,9 +14,9 @@ def _send_mail(from_addr, to_addr):
     response = "验证码发送成功"
     # 生成邮件
     msg = _mail_content(from_addr, to_addr, validation)
-    server = smtplib.SMTP_SSL(smtp_server)
+    server = smtplib.SMTP_SSL(smtp_server)  # 云服务器需要
     server.set_debuglevel(1)
-    server.ehlo(smtp_server)
+    server.ehlo(smtp_server)  # 云服务器需要
     server.login(from_addr, password)
     try:
         server.sendmail(from_addr, [to_addr], msg.as_string())

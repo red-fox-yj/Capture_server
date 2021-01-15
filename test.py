@@ -1,4 +1,5 @@
 import csv
+import redis
 
 temp_list = []
 
@@ -36,22 +37,27 @@ def _modify(names_str: str):
     _WriteToCsv(names_str.split(","))
 
 
-user_list = ["用户名为空", "用户名已存在", "用户名有效"]
-email_list = ["邮箱为空", "邮箱已存在", "邮箱无效", "邮箱有效"]
-validation_list = ["验证码为空", "验证码错误", "验证码正确"]
-password_list = ["密码为空", "密码错误", "密码正确"]
+# user_list = ["用户名为空", "用户名已存在", "用户名有效"]
+# email_list = ["邮箱为空", "邮箱已存在", "邮箱无效", "邮箱有效"]
+# validation_list = ["验证码为空", "验证码错误", "验证码正确"]
+# password_list = ["密码为空", "密码错误", "密码正确"]
 
-for item_1 in user_list:
-    temp_1 = item_1 + "+"
-    for item_2 in email_list:
-        temp_2 = temp_1
-        temp_2 += item_2 + "+"
-        for item_3 in validation_list:
-            temp_3 = temp_2
-            temp_3 += item_3 + "+"
-            for item_4 in password_list:
-                temp_list.append(temp_3 + item_4)
+# for item_1 in user_list:
+#     temp_1 = item_1 + "+"
+#     for item_2 in email_list:
+#         temp_2 = temp_1
+#         temp_2 += item_2 + "+"
+#         for item_3 in validation_list:
+#             temp_3 = temp_2
+#             temp_3 += item_3 + "+"
+#             for item_4 in password_list:
+#                 temp_list.append(temp_3 + item_4)
 
 
-print(temp_list)
-_WriteToCsv(temp_list)
+# print(temp_list)
+# _WriteToCsv(temp_list)
+
+r = redis.Redis(
+    host="127.0.0.1:6379", port=6379, decode_responses=True
+)  # host是redis主机，需要redis服务端和客户端都启动 redis默认端口是6379
+r.set("111", "222", ex=60)

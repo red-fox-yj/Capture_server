@@ -14,8 +14,9 @@ def _send_mail(from_addr, to_addr):
     response = "验证码发送成功"
     # 生成邮件
     msg = _mail_content(from_addr, to_addr, validation)
-    server = smtplib.SMTP(smtp_server, 25)
+    server = smtplib.SMTP_SSL(smtp_server)
     server.set_debuglevel(1)
+    server.ehlo(smtp_server)
     server.login(from_addr, password)
     try:
         server.sendmail(from_addr, [to_addr], msg.as_string())
@@ -28,7 +29,7 @@ def _send_mail(from_addr, to_addr):
 def _save_redis(email: str, validation: str):
     """将验证码保存到redis里面"""
     r = redis.Redis(
-        host="localhost", port=6379, decode_responses=True
+        host="127.0.0.1", port=6379, decode_responses=True
     )  # host是redis主机，需要redis服务端和客户端都启动 redis默认端口是6379
     r.set(email, validation, ex=120)
     print(r.get(email))

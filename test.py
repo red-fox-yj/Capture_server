@@ -58,6 +58,7 @@ def _modify(names_str: str):
 # _WriteToCsv(temp_list)
 
 r = redis.Redis(
-    host="127.0.0.1:6379", port=6379, decode_responses=True
+    host="127.0.0.1", port=6379, decode_responses=True
 )  # host是redis主机，需要redis服务端和客户端都启动 redis默认端口是6379
 r.set("111", "222", ex=60)
+print(r.get("111"))
